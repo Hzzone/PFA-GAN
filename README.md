@@ -1,4 +1,4 @@
-#### PFA-GAN: Progressive Face Aging with Generative Adversarial Network
+### PFA-GAN: Progressive Face Aging with Generative Adversarial Network
 
 [arxiv](https://arxiv.org/abs/2012.03459)
 
