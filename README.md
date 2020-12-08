@@ -1,3 +1,7 @@
+#### PFA-GAN: Progressive Face Aging with Generative Adversarial Network
+
+[arxiv](https://arxiv.org/abs/2012.03459)
+
 We are now re-organizing our code to ensure it working as expected, so it would be publicly available a few days later.
 
 ### Citation
