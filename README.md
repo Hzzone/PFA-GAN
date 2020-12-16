@@ -2,6 +2,7 @@
 
 [arxiv](https://arxiv.org/abs/2012.03459)
 
+This paper has been accepted as a Regular Paper on **IEEE Transactions on Information Forensics & Security**, to be published soon later.
 
 #### Requirements
 
