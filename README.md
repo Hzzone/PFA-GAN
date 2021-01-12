@@ -1,8 +1,8 @@
 ### PFA-GAN: Progressive Face Aging with Generative Adversarial Network
 
-[arxiv](https://arxiv.org/abs/2012.03459)
+[arxiv](https://arxiv.org/abs/2012.03459) | [doi](https://ieeexplore.ieee.org/document/9309246)
 
-This paper has been accepted as a Regular Paper by **IEEE Transactions on Information Forensics & Security**, to be published soon later.
+This paper has been accepted as a Regular Paper by **IEEE Transactions on Information Forensics & Security**.
 
 #### Requirements
 
@@ -25,12 +25,11 @@ python -m torch.distributed.launch --nproc_per_node=4 --master_port=17674 \\
 
 If you found this code or our work useful please cite us:
 ```
-@misc{huang2020pfagan,
-      title={PFA-GAN: Progressive Face Aging with Generative Adversarial Network}, 
-      author={Zhizhong Huang and Shouzhen Chen and Junping Zhang and Hongming Shan},
-      year={2020},
-      eprint={2012.03459},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV}
+@article{huang2020pfa,
+  title={PFA-GAN: Progressive Face Aging with Generative Adversarial Network},
+  author={Huang, Zhizhong and Chen, Shouzhen and Zhang, Junping and Shan, Hongming},
+  journal={IEEE Transactions on Information Forensics and Security},
+  year={2020},
+  publisher={IEEE}
 }
 ```
