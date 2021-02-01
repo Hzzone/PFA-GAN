@@ -26,7 +26,7 @@ python -m torch.distributed.launch --nproc_per_node=4 --master_port=17674 \\
 If you found this code or our work useful please cite us:
 ```
 @article{huang2020pfa,
-  title={PFA-GAN: Progressive Face Aging with Generative Adversarial Network},
+  title={{PFA-GAN}: Progressive Face Aging with Generative Adversarial Network},
   author={Huang, Zhizhong and Chen, Shouzhen and Zhang, Junping and Shan, Hongming},
   journal={IEEE Transactions on Information Forensics and Security},
   year={2020},
