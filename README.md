@@ -29,7 +29,7 @@ If you found this code or our work useful please cite us:
   title={{PFA-GAN}: Progressive Face Aging with Generative Adversarial Network},
   author={Huang, Zhizhong and Chen, Shouzhen and Zhang, Junping and Shan, Hongming},
   journal={IEEE Transactions on Information Forensics and Security},
-  year={2020},
+  year={2021},
   publisher={IEEE}
 }
 ```
