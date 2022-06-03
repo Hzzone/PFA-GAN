@@ -127,7 +127,7 @@ class PFA_GAN(object):
             inputs = self.prefetcher.next()
             self.train(inputs, n_iter)
             if n_iter % opt.save_iter == 0 or n_iter == opt.max_iter:
-                self.logger.checkpoints(n_iter)
+                # self.logger.checkpoints(n_iter)
                 self.generate_images(n_iter)
 
     def age_criterion(self, input, gt_age):
@@ -148,11 +148,21 @@ class PFA_GAN(object):
         self.generator.train()
         self.discriminator.train()
 
-        g_source = self.generator(source_img, source_label, target_label)
+        if opt.image_size < opt.pretrained_image_size:
+            source_img_small = F.interpolate(source_img, opt.image_size)
+            true_img_small = F.interpolate(true_img, opt.image_size)
+        else:
+            source_img_small = source_img
+            true_img_small = true_img
+        g_source = self.generator(source_img_small, source_label, target_label)
+        if opt.image_size < opt.pretrained_image_size:
+            g_source_pretrained = F.interpolate(g_source, opt.pretrained_image_size)
+        else:
+            g_source_pretrained = g_source
 
         ########Train D###########
         self.d_optim.zero_grad()
-        d1_logit = self.discriminator(true_img, true_label)
+        d1_logit = self.discriminator(true_img_small, true_label)
         # d2_logit = self.discriminator(true_img, source_label)
         d3_logit = self.discriminator(g_source.detach(), target_label)
 
@@ -167,23 +177,23 @@ class PFA_GAN(object):
         self.g_optim.zero_grad()
         ################################GAN_LOSS##############################
         gan_logit = self.discriminator(g_source, target_label)
-        g_loss = 0.5 * ls_gan(gan_logit, 1.)
-        # g_loss = ls_gan(gan_logit, 1.)
+        # g_loss = 0.5 * ls_gan(gan_logit, 1.)
+        g_loss = ls_gan(gan_logit, 1.)
 
         ################################Age_Loss##############################
-        age_loss = self.age_criterion(g_source, mean_age)
+        age_loss = self.age_criterion(g_source_pretrained, mean_age)
 
         ################################L1_loss##############################
-        l1_loss = F.l1_loss(g_source, source_img)
+        l1_loss = F.l1_loss(g_source_pretrained, source_img)
 
         ################################SSIM_loss##############################
-        ssim_loss = compute_ssim_loss(g_source, source_img, window_size=10)
+        ssim_loss = compute_ssim_loss(g_source_pretrained, source_img, window_size=10)
 
         ################################ID_loss##############################
-        id_loss = F.mse_loss(self.extract_vgg_face(g_source), self.extract_vgg_face(source_img))
+        id_loss = F.mse_loss(self.extract_vgg_face(g_source_pretrained), self.extract_vgg_face(source_img))
 
         pix_loss_weight = max(opt.pix_loss_weight,
-                              opt.gan_loss_weight * (opt.decay_pix_factor ** (n_iter // opt.decay_pix_n)))
+                              opt.pix_loss_weight * (opt.decay_pix_factor ** (n_iter // opt.decay_pix_n)))
 
         total_loss = g_loss * opt.gan_loss_weight + \
                      (l1_loss * (1 - opt.alpha) + ssim_loss * opt.alpha) * pix_loss_weight + \
